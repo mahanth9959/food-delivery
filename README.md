@@ -32,7 +32,7 @@ The demo manager account is filled in on the sign-in screen, or use it directly:
 | --- | --- | --- |
 | Authentication | `/login`, `/register`, `/forgot-password` | Validated forms, show/hide password, live password strength, hashed credentials, session in local or tab storage, protected routes, sign-out |
 | Dashboard | `/` | Takings for seven evenings, tonight's KPIs, the live board, kitchen load, the sell-out timeline, order stages and quick actions |
-| Restaurants | `/restaurants`, `/restaurants/:slug` | The API catalogue grouped into kitchens, derived ratings, live open/closed state, dish search and filters, add to basket |
+| Restaurants | `/restaurants`, `/restaurants/:slug` | The API catalogue grouped into kitchens with search, cuisine and rating filters, four sort orders, open-now filter, pagination and empty states; derived ratings, live open/closed state, add to basket |
 | Menu management | `/menu`, `/menu/:dishId` | Search, category, veg/non-veg, availability and sort; add a dish, edit it, mark it sold out (with the time), remove it |
 | Basket | `/cart` | Add, remove, change quantity, clear, coupons with real arithmetic, totals, localStorage |
 | Checkout | `/checkout`, `/checkout/payment` | Saved or new address, contact details, order summary, empty-basket guard, card / UPI / wallet payment, declined and success paths |

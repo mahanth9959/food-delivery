@@ -112,18 +112,57 @@ export function ProfilePage() {
                     initials(user.name)
                   )}
                 </span>
-                <button
-                  type="button"
-                  className="absolute -right-1 -bottom-1 grid h-7 w-7 place-items-center rounded-full bg-surface shadow-[inset_0_0_0_1px_var(--color-control)] transition-colors hover:bg-raised"
-                  aria-label="Choose a profile photograph"
-                  onClick={() => {
-                    setAvatar(null)
-                    updateProfile({ avatar: null })
-                    toast.success('Profile photograph cleared. A real build would take an upload here.')
-                  }}
+                <label
+                  className="absolute -right-1 -bottom-1 grid h-7 w-7 cursor-pointer place-items-center rounded-full bg-surface shadow-[inset_0_0_0_1px_var(--color-control)] transition-colors hover:bg-raised focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-brand-deep"
+                  title={avatar ? 'Replace the photograph' : 'Add a photograph'}
                 >
                   <Camera size={13} strokeWidth={1.7} />
-                </button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="sr-only"
+                    aria-label="Choose a profile photograph"
+                    onChange={(event) => {
+                      const file = event.target.files?.[0]
+                      if (!file) return
+                      if (!file.type.startsWith('image/')) {
+                        toast.error('That file is not an image. Choose a PNG, JPEG or WebP.')
+                        return
+                      }
+                      // A small avatar only: the data URL lives in localStorage with the profile,
+                      // so anything near the 5 MB quota would evict the basket and orders.
+                      if (file.size > 400_000) {
+                        toast.error('That image is over 400 KB. Choose a smaller one for the avatar.')
+                        return
+                      }
+                      const reader = new FileReader()
+                      reader.onload = () => {
+                        const dataUrl = String(reader.result)
+                        setAvatar(dataUrl)
+                        updateProfile({ avatar: dataUrl })
+                        toast.success('Profile photograph updated.')
+                      }
+                      reader.onerror = () => toast.error('That image could not be read. Try another file.')
+                      reader.readAsDataURL(file)
+                      event.target.value = ''
+                    }}
+                  />
+                </label>
+                {avatar ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAvatar(null)
+                      updateProfile({ avatar: null })
+                      toast.success('Profile photograph removed.')
+                    }}
+                    className="absolute -bottom-1 left-0 grid h-7 w-7 place-items-center rounded-full bg-surface text-muted shadow-[inset_0_0_0_1px_var(--color-control)] transition-colors hover:bg-pill-negative-bg hover:text-pill-negative-ink"
+                    aria-label="Remove the profile photograph"
+                    title="Remove the photograph"
+                  >
+                    <Trash2 size={12} strokeWidth={1.9} />
+                  </button>
+                ) : null}
               </span>
               <div className="min-w-0">
                 <p className="text-[15px] leading-5 font-semibold">{user.name}</p>
