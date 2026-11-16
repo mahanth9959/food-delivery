@@ -324,7 +324,7 @@ export function PaymentPage() {
                       value={upi}
                       onChange={(event) => setUpi(event.target.value)}
                     />
-                    <span className="shrink-0 rounded-[4px] bg-sunken px-2 py-1 font-mono text-[13px] tracking-wide text-muted">
+                    <span className="shrink-0 rounded-[4px] bg-sunken px-2 py-1 text-[12px] font-medium text-muted">
                       UPI
                     </span>
                   </div>
@@ -425,7 +425,7 @@ export function PaymentPage() {
                 <dd className="num">{formatINRPrecise(pricing.tax)}</dd>
               </div>
             </dl>
-            <div className="mt-3 flex items-baseline justify-between gap-3 border-t border-line pt-3">
+            <div className="settle-rule mt-3 flex items-baseline justify-between gap-3 pt-3">
               <p className="text-[13px] leading-5 font-semibold">Total</p>
               <p className="num text-[22px] leading-7 font-semibold">{formatINRPrecise(pricing.total)}</p>
             </div>

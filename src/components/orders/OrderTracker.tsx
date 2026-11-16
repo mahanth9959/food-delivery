@@ -48,7 +48,7 @@ export function OrderTracker({ order }: { order: Order }) {
                 <div
                   className={cn(
                     'flex h-1.5 w-full rounded-[2px]',
-                    reached ? (current ? 'bg-hue' : 'bg-ink') : 'bg-sunken',
+                    reached ? (current ? 'bg-brand' : 'bg-ink') : 'bg-sunken',
                   )}
                   aria-hidden="true"
                 />
@@ -97,7 +97,7 @@ export function OrderTimeline({ order }: { order: Order }) {
                 entry.status === 'cancelled'
                   ? 'bg-negative'
                   : isLast
-                    ? 'bg-hue'
+                    ? 'bg-brand'
                     : 'bg-ink',
               )}
               aria-hidden="true"

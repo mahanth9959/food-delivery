@@ -21,9 +21,12 @@ interface CustomerRow {
 }
 
 const toneOf = (index: number) =>
-  ['bg-[#e9edf2] text-[#2b3a4a]', 'bg-[#eceee9] text-[#333d30]', 'bg-[#f2ecec] text-[#47312f]', 'bg-[#eceaf2] text-[#383049]'][
-    index % 4
-  ]
+  [
+    'bg-avatar-1-bg text-avatar-1-ink',
+    'bg-avatar-2-bg text-avatar-2-ink',
+    'bg-avatar-3-bg text-avatar-3-ink',
+    'bg-avatar-4-bg text-avatar-4-ink',
+  ][index % 4]
 
 export function CustomersPage() {
   useDocumentTitle('Customers')
@@ -146,53 +149,71 @@ export function CustomersPage() {
             {visible.map((customer, index) => (
               <li
                 key={customer.phone}
-                className="row-hover flex flex-wrap items-center gap-3 border-t border-rule px-4 py-3 first:border-0 sm:flex-nowrap"
+                className="row-hover border-t border-rule px-4 py-3 first:border-0"
               >
-                <span
-                  className={cn(
-                    'grid h-9 w-9 shrink-0 place-items-center rounded-full text-[13px] font-semibold',
-                    toneOf(index),
-                  )}
-                  aria-hidden="true"
-                >
-                  {initials(customer.name)}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-[13px] leading-[18px] font-medium">{customer.name}</p>
-                  <p className="num truncate text-[13px] leading-4 text-faint">{customer.phone}</p>
+                <div className="flex items-center gap-3">
+                  <span
+                    className={cn(
+                      'grid h-9 w-9 shrink-0 place-items-center rounded-full text-[13px] font-semibold',
+                      toneOf(index),
+                    )}
+                    aria-hidden="true"
+                  >
+                    {initials(customer.name)}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[13px] leading-[18px] font-medium">{customer.name}</p>
+                    <p className="num truncate text-[13px] leading-4 text-faint">{customer.phone}</p>
+                  </div>
+                  <p className="hidden min-w-0 max-w-[240px] flex-1 truncate text-[13px] leading-4 text-muted md:block">
+                    {customer.address}
+                  </p>
+                  <div className="hidden shrink-0 items-center gap-4 lg:flex">
+                    <div className="w-14 text-right">
+                      <p className="num text-[13px] leading-4 font-medium">{customer.orders}</p>
+                      <p className="text-[12px] leading-4 text-faint">
+                        {customer.orders === 1 ? 'order' : 'orders'}
+                      </p>
+                    </div>
+                    <div className="w-20 text-right">
+                      <p className="num text-[13px] leading-4 font-medium">{formatINR(customer.spent)}</p>
+                      <p className="text-[12px] leading-4 text-faint">spent</p>
+                    </div>
+                    <div className="w-24 text-right">
+                      <p className="text-[13px] leading-4 text-muted">{formatRelative(customer.lastAt)}</p>
+                      <p className="text-[12px] leading-4 text-faint">last order</p>
+                    </div>
+                  </div>
+                  <div className="shrink-0">
+                    {customer.active ? (
+                      <span className="pill pill-live">
+                        <span className="dot" aria-hidden="true" />
+                        {customer.active} live
+                      </span>
+                    ) : (
+                      <Link
+                        to={`/orders?query=${encodeURIComponent(customer.phone)}`}
+                        className="inline-flex items-center gap-0.5 whitespace-nowrap text-[13px] font-medium text-muted transition-colors hover:text-ink"
+                      >
+                        Orders
+                        <ArrowUpRight size={12} strokeWidth={1.7} />
+                      </Link>
+                    )}
+                  </div>
                 </div>
-                <p className="hidden min-w-0 max-w-[240px] flex-1 truncate text-[13px] leading-4 text-muted md:block">
-                  {customer.address}
-                </p>
-                <div className="flex shrink-0 items-center gap-4">
-                  <div className="w-14 text-right">
-                    <p className="num text-[13px] leading-4 font-medium">{customer.orders}</p>
-                    <p className="text-[13px] leading-4 text-faint">
-                      {customer.orders === 1 ? 'order' : 'orders'}
+
+                {/* On a phone the address and the figures take a second line under the name. */}
+                <div className="mt-2 border-t border-rule pt-2 pl-12 lg:hidden">
+                  <p className="line-clamp-2 text-[12px] leading-4 text-faint">{customer.address}</p>
+                  <div className="mt-1 flex items-baseline gap-3">
+                    <p className="num shrink-0 text-[12px] leading-4 text-muted">
+                      {customer.orders} {customer.orders === 1 ? 'order' : 'orders'}
+                    </p>
+                    <p className="num shrink-0 text-[12px] leading-4 font-medium">{formatINR(customer.spent)}</p>
+                    <p className="ml-auto shrink-0 text-[12px] leading-4 text-faint">
+                      {formatRelative(customer.lastAt)}
                     </p>
                   </div>
-                  <div className="w-20 text-right">
-                    <p className="num text-[13px] leading-4 font-medium">{formatINR(customer.spent)}</p>
-                    <p className="text-[13px] leading-4 text-faint">spent</p>
-                  </div>
-                  <div className="hidden w-24 text-right sm:block">
-                    <p className="text-[13px] leading-4 text-muted">{formatRelative(customer.lastAt)}</p>
-                    <p className="text-[13px] leading-4 text-faint">last order</p>
-                  </div>
-                  {customer.active ? (
-                    <span className="pill pill-hue">
-                      <span className="dot" aria-hidden="true" />
-                      {customer.active} live
-                    </span>
-                  ) : (
-                    <Link
-                      to={`/orders?query=${encodeURIComponent(customer.phone)}`}
-                      className="inline-flex items-center gap-0.5 text-[13px] font-medium text-muted transition-colors hover:text-ink"
-                    >
-                      Orders
-                      <ArrowUpRight size={12} strokeWidth={1.7} />
-                    </Link>
-                  )}
                 </div>
               </li>
             ))}

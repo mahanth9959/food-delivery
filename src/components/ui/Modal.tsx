@@ -67,7 +67,7 @@ export function Modal({ open, onClose, title, description, children, footer, siz
         type="button"
         aria-label="Close dialog"
         onClick={onClose}
-        className="absolute inset-0 h-full w-full cursor-default bg-[rgb(17_19_19/0.38)]"
+        className="absolute inset-0 h-full w-full cursor-default overlay"
       />
       <div
         ref={panel}

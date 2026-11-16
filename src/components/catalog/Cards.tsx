@@ -10,10 +10,13 @@ export function RestaurantCard({
   kitchen,
   dishes,
   className,
+  priority = false,
 }: {
   kitchen: Kitchen
   dishes: Dish[]
   className?: string
+  /** The first card above the fold: its photograph is the screen's LCP. */
+  priority?: boolean
 }) {
   const hero = dishes.find((dish) => dish.id === kitchen.heroDishId) ?? dishes[0]
   const rating = dishRating(dishes)
@@ -34,8 +37,9 @@ export function RestaurantCard({
           <img
             src={hero.image}
             alt={`${hero.name} at ${kitchen.name}`}
-            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-            loading="lazy"
+            className="photo h-full w-full object-cover"
+            loading={priority ? 'eager' : 'lazy'}
+            fetchPriority={priority ? 'high' : 'auto'}
             width={640}
             height={360}
           />
@@ -88,13 +92,13 @@ export function DishCard({ dish, onAdd }: { dish: Dish; onAdd?: () => void }) {
           <img
             src={dish.image}
             alt={dish.name}
-            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            className="photo h-full w-full object-cover"
             loading="lazy"
             width={480}
             height={360}
           />
           {!dish.available ? (
-            <span className="absolute inset-0 grid place-items-center bg-[rgb(243_244_244/0.72)]">
+            <span className="absolute inset-0 grid place-items-center overlay-soft">
               <span className="pill bg-surface text-muted">Sold out{dish.soldOutAt ? ` ${dish.soldOutAt}` : ''}</span>
             </span>
           ) : null}

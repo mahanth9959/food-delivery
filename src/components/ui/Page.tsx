@@ -1,7 +1,7 @@
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
 import { cn } from '../../lib/cn'
-import type { ReactNode } from 'react'
 
 export function PageHeader({
   title,
@@ -17,10 +17,10 @@ export function PageHeader({
   return (
     <div className="flex flex-col gap-3 pb-5 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
       <div className="min-w-0">
-        <h1 id={headingId} className="text-[24px] leading-8 font-semibold tracking-[-0.015em] outline-none">
+        <h1 id={headingId} className="text-[26px] leading-8 font-semibold tracking-[-0.028em] outline-none">
           {title}
         </h1>
-        {finding ? <div className="mt-1 max-w-[76ch] text-[13px] leading-5 text-muted">{finding}</div> : null}
+        {finding ? <div className="mt-1.5 max-w-[82ch] text-[13px] leading-5 text-muted">{finding}</div> : null}
       </div>
       {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
     </div>
@@ -41,7 +41,7 @@ export function SectionHeading({
   return (
     <div className={cn('flex items-baseline justify-between gap-3', className)}>
       <div className="flex min-w-0 flex-wrap items-baseline gap-x-2.5 gap-y-1">
-        <h2 className="text-[15px] leading-5 font-semibold">{title}</h2>
+        <h2 className="text-[15px] leading-5 font-semibold tracking-[-0.012em]">{title}</h2>
         {meta ? <span className="text-[13px] leading-4 text-faint">{meta}</span> : null}
       </div>
       {action}
@@ -65,7 +65,7 @@ export function ViewAll({ to, children }: { to: string; children: ReactNode }) {
   return (
     <Link
       to={to}
-      className="inline-flex items-center gap-0.5 text-[13px] font-medium text-muted transition-colors hover:text-ink"
+      className="inline-flex items-center gap-0.5 whitespace-nowrap text-[13px] font-medium text-muted transition-colors hover:text-ink"
     >
       {children}
       <ChevronRight size={13} strokeWidth={1.7} />

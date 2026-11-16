@@ -1,24 +1,41 @@
+/* Hallmark · checked: 2026-11-16 · genre: modern-minimal (inferred) · theme: Coral (deal 1/3, seed dinner-delivery-service-console-1186·388ce608·2026-11-16·r0) · redesign: restyle
+ * shape: app screen · nav: a dark ink board down the left, the current screen pressed into coral stock
+ * signature: the tiffin stack as the order meter, tiers filling as the evening moves · states: loading, empty, error, full
+ * axes: light/grotesk-sans/warm · posture: restrained · contrast: pass · built: Hallmark · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E5 S5 R5 V4 · weakest: P, a warm neutral console could be any kitchen
+ * back office; led with the service's own objects (tiffin tiers, the evening's takings, the pass) in coral stock */
+/* Hallmark · dismissed F4 · the secondary is cotton stock on a warm desk, one value step from paper, not a second filled primary */
+/* Hallmark · dismissed 11 · the container answers the pointer with its own edge; the photographs inside it never move */
+/* Hallmark · dismissed kept · the seeded evening's promised clock times rebuild from the current minute every 20
+ * minutes (OrdersContext DEMO_FRESH_MINUTES), so the before record's times drift by design; no figure was removed */
+
 @import "tailwindcss";
 
-/* Dabba — achromatic ledger (seed 129768193).
-   One steel ground from the tiffin carrier, white panels, near-black chrome and one
-   chart hue (#1d5fbf) on the data that answers the screen's question. */
+/* Dabba — dinner service on coral stock.
+   Warm grey desk, cotton stationery, an ink board for the rail, and one coral pressed
+   into the stock for what is live, chosen, or waiting on the manager. General Sans for
+   everything read, Geist Mono for the figures and the order codes. */
 
 @font-face {
-  font-family: "Geist";
+  font-family: "General Sans";
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
-  src: url("./assets/fonts/geist-latin.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  src: url("./assets/fonts/general-sans-400.woff2") format("woff2");
 }
 @font-face {
-  font-family: "Geist";
+  font-family: "General Sans";
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 500;
   font-display: swap;
-  src: url("./assets/fonts/geist-latin-ext.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  src: url("./assets/fonts/general-sans-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "General Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./assets/fonts/general-sans-600.woff2") format("woff2");
 }
 @font-face {
   font-family: "Geist Mono";
@@ -37,64 +54,138 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-@theme {
-  --font-sans: "Geist", system-ui, sans-serif;
+@theme static {
+  --font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
 
-  --color-ground: #f3f4f4;
-  --color-surface: #ffffff;
-  --color-raised: #f4f5f5;
-  --color-sunken: #eceeee;
-  --color-active: #e7e9e9;
-  --color-line: #e5e7e7;
-  --color-rule: #eef0f0;
-  --color-control: #d3d6d6;
-  --color-ink: #111313;
-  --color-muted: #5c6161;
-  --color-faint: #6b7070;
-  --color-invert: #ffffff;
+  /* Paper: one warm desk, cotton sheets laid on it. */
+  --color-ground: oklch(93.8% 0.010 72);
+  --color-surface: oklch(98.8% 0.006 82);
+  --color-raised: oklch(96.5% 0.009 78);
+  --color-sunken: oklch(93.0% 0.012 72);
+  --color-active: oklch(93.5% 0.030 42);
+  --color-line: oklch(88.5% 0.012 70);
+  --color-rule: oklch(92.2% 0.010 72);
+  --color-control: oklch(60.0% 0.020 62);
 
-  --color-brand: #141616;
-  --color-hue: #1d5fbf;
-  --color-hue-soft: #e8effa;
-  --color-positive: #247b50;
-  --color-negative: #b4232a;
-  --color-warning: #8a4b0f;
+  /* Ink. */
+  --color-ink: oklch(23.5% 0.016 42);
+  --color-muted: oklch(44.0% 0.018 48);
+  --color-faint: oklch(50.5% 0.017 52);
+  --color-invert: oklch(98.5% 0.005 85);
 
-  --color-pill-positive-bg: #dcfae5;
-  --color-pill-positive-ink: #043b22;
-  --color-pill-negative-bg: #ffedea;
-  --color-pill-negative-ink: #7a1a1f;
-  --color-pill-warning-bg: #fff7e6;
-  --color-pill-warning-ink: #7a3f0a;
-  --color-pill-neutral-bg: #eceeee;
-  --color-pill-neutral-ink: #3b4040;
-  --color-pill-hue-bg: #e8effa;
-  --color-pill-hue-ink: #17427f;
+  /* The board: chrome, the rail and the one dark surface. */
+  --color-board: oklch(22.0% 0.014 42);
+  --color-board-2: oklch(27.5% 0.016 42);
+  --color-board-3: oklch(31.5% 0.017 42);
+  --color-board-type: oklch(96.0% 0.008 80);
+  --color-board-muted: oklch(76.0% 0.012 70);
+  --color-board-faint: oklch(66.0% 0.012 68);
+
+  /* Coral, pressed into the stock: the primary, what is live, what is chosen. */
+  --color-brand: oklch(73.5% 0.130 31);
+  --color-brand-ink: oklch(23.5% 0.016 42);
+  --color-brand-hover: oklch(70.0% 0.132 31);
+  --color-brand-press: oklch(67.0% 0.130 31);
+  --color-brand-deep: oklch(54.5% 0.165 29);
+  --color-brand-soft: oklch(93.5% 0.034 40);
+  --color-brand-wash: oklch(96.5% 0.018 45);
+
+  --color-hue: oklch(73.5% 0.130 31);
+  --color-hue-soft: oklch(95.2% 0.022 42);
+
+  /* In motion: a rider on the road, never the primary's coral. */
+  --color-live: oklch(47.0% 0.078 212);
+  --color-live-soft: oklch(94.0% 0.026 210);
+  --color-live-ink: oklch(37.5% 0.070 212);
+
+  /* What the evening reports: food on time, food late, food in the pass. */
+  --color-positive: oklch(44.5% 0.100 152);
+  --color-negative: oklch(47.5% 0.175 22);
+  --color-warning: oklch(60.0% 0.125 66);
+
+  --color-pill-positive-bg: oklch(94.2% 0.038 152);
+  --color-pill-positive-ink: oklch(33.5% 0.090 152);
+  --color-pill-negative-bg: oklch(94.8% 0.030 24);
+  --color-pill-negative-ink: oklch(39.5% 0.150 22);
+  --color-pill-warning-bg: oklch(95.2% 0.050 82);
+  --color-pill-warning-ink: oklch(41.0% 0.090 62);
+  --color-pill-warning-edge: oklch(88.0% 0.060 82);
+  --color-pill-neutral-bg: oklch(93.0% 0.012 72);
+  --color-pill-neutral-ink: oklch(36.0% 0.016 46);
+  --color-pill-hue-bg: oklch(94.2% 0.030 40);
+  --color-pill-hue-ink: oklch(43.5% 0.145 28);
+  --color-pill-live-bg: oklch(94.0% 0.026 210);
+  --color-pill-live-ink: oklch(37.5% 0.070 212);
+  --color-pill-positive-edge: oklch(84.0% 0.050 152 / 0.55);
+  --color-pill-negative-edge: oklch(80.0% 0.060 24 / 0.70);
+  --color-pill-negative-hover: oklch(91.5% 0.045 24);
+  --color-pill-warning-edge-soft: oklch(88.0% 0.060 82);
+  --color-pill-neutral-edge: oklch(80.0% 0.016 66 / 0.85);
+  --color-pill-hue-edge: oklch(86.0% 0.050 40 / 0.80);
+  --color-pill-live-edge: oklch(84.0% 0.035 210 / 0.60);
+
+  --color-avatar-1-bg: oklch(92.0% 0.032 42);
+  --color-avatar-1-ink: oklch(38.0% 0.110 30);
+  --color-avatar-2-bg: oklch(93.0% 0.030 152);
+  --color-avatar-2-ink: oklch(34.0% 0.070 152);
+  --color-avatar-3-bg: oklch(93.5% 0.042 85);
+  --color-avatar-3-ink: oklch(38.0% 0.080 70);
+  --color-avatar-4-bg: oklch(92.5% 0.026 330);
+  --color-avatar-4-ink: oklch(37.0% 0.070 330);
 
   --radius-panel: 8px;
-  --radius-control: 6px;
-  --radius-chip: 4px;
+  --radius-card: 8px;
+  --radius-control: 7px;
+  --radius-chip: 5px;
 
+  --shadow-card: 0 1px 2px oklch(22% 0.014 42 / 0.05);
+  --shadow-lift: 0 1px 2px oklch(22% 0.014 42 / 0.06), 0 10px 24px -14px oklch(22% 0.014 42 / 0.28);
+  --shadow-pop: 0 2px 4px oklch(22% 0.014 42 / 0.06), 0 14px 34px -16px oklch(22% 0.014 42 / 0.30);
 }
 
 @layer base {
   :root {
     /* charts.js reads these names directly */
-    --chart-1: #1d5fbf;
-    --chart-2: #8a8f8f;
-    --chart-3: #141616;
-    --chart-muted: #cfd4d4;
-    --chart-mark: #141616;
-    --chart-track: #dfe3e3;
+    --chart-1: oklch(73.5% 0.130 31);
+    --chart-2: oklch(80.0% 0.012 72);
+    --chart-3: oklch(23.5% 0.016 42);
+    --chart-muted: oklch(86.0% 0.012 72);
+    --chart-mark: oklch(23.5% 0.016 42);
+    --chart-track: oklch(90.0% 0.012 72);
     --chart-span: 0.06;
-    --grid: #e5e7e7;
-    --axis-ink: #5c6161;
-    --ink: #111313;
-    --surface: #ffffff;
-    --raised: #f4f5f5;
-    --rule: #eef0f0;
-    --negative: #b4232a;
+    --grid: oklch(90.0% 0.010 72);
+    --axis-ink: oklch(44.0% 0.018 48);
+    --ink: oklch(23.5% 0.016 42);
+    --surface: oklch(98.8% 0.006 82);
+    --raised: oklch(96.5% 0.009 78);
+    --rule: oklch(92.2% 0.010 72);
+    --negative: oklch(47.5% 0.175 22);
+
+    /* The one light, from the left: paper takes a lit edge and a cast falling right. */
+    --shade: 34% 0.020 50;
+    --lit: 99.5% 0.006 85;
+    --deep: 9% 0.012 40;
+    --edge-stock:
+      inset 0 1px 0 oklch(var(--lit) / 0.9),
+      inset 0 -1px 0 oklch(var(--shade) / 0.05),
+      0 0 0 1px oklch(var(--shade) / 0.11);
+    --cast-stock: 0 1px 2px oklch(var(--shade) / 0.10), 4px 5px 10px -8px oklch(var(--shade) / 0.30);
+    --cast-stock-lift: 0 2px 4px oklch(var(--shade) / 0.10), 10px 12px 20px -12px oklch(var(--shade) / 0.32);
+    --press-groove:
+      inset 1px 1.5px 2px oklch(var(--shade) / 0.14),
+      inset -1px -1px 0 oklch(var(--lit) / 0.9),
+      0 0 0 1px oklch(var(--shade) / 0.14);
+
+    /* Photograph treatment: warm, a little muted, lit by the room. */
+    --photo-grade: saturate(0.94) contrast(1.02) sepia(0.06);
+    --scrim: oklch(20.0% 0.020 42 / 0.55);
+    --scrim-soft: oklch(20.0% 0.020 42 / 0.38);
+    --scrim-top: oklch(20.0% 0.020 42 / 0.12);
+    --scrim-mid: oklch(20.0% 0.020 42 / 0.08);
+    --scrim-deep: oklch(20.0% 0.020 42 / 0.82);
+    --scrim-mid-strong: oklch(20.0% 0.020 42 / 0.42);
+    --lit-edge: inset 0 1px 0 oklch(99.5% 0.006 85 / 0.35);
   }
 
   *,
@@ -106,6 +197,7 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    scrollbar-color: var(--color-control) var(--color-ground);
   }
 
   body {
@@ -114,7 +206,8 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 14px;
-    line-height: 20px;
+    line-height: 21px;
+    font-synthesis: none;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -130,6 +223,20 @@
   dl,
   dd {
     margin: 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    overflow-wrap: break-word;
+    min-width: 0;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   ul,
@@ -167,13 +274,13 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-hue);
+    outline: 2px solid var(--color-brand-deep);
     outline-offset: 2px;
     border-radius: 4px;
   }
 
   ::selection {
-    background: var(--color-hue-soft);
+    background: var(--color-brand-soft);
     color: var(--color-ink);
   }
 
@@ -193,10 +300,11 @@
     font-variant-numeric: tabular-nums;
   }
 
+  /* Every record is a cotton sheet on the desk: a lit edge, a shade edge, a cast to the right. */
   .panel {
     background: var(--color-surface);
-    border: 1px solid var(--color-line);
     border-radius: var(--radius-panel);
+    box-shadow: var(--edge-stock), var(--shadow-card);
   }
 
   /* field */
@@ -205,7 +313,7 @@
     font-size: 13px;
     font-weight: 500;
     color: var(--color-ink);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .field {
@@ -216,6 +324,7 @@
     border: 1px solid var(--color-control);
     border-radius: var(--radius-control);
     color: var(--color-ink);
+    box-shadow: inset 0 1px 2px oklch(var(--shade) / 0.06);
     transition:
       border-color 150ms ease,
       box-shadow 150ms ease;
@@ -226,13 +335,15 @@
   }
 
   .field:hover {
-    border-color: #b9bdbd;
+    border-color: var(--color-muted);
   }
 
   .field:focus {
     outline: none;
-    border-color: var(--color-hue);
-    box-shadow: 0 0 0 3px var(--color-hue-soft);
+    border-color: var(--color-brand-deep);
+    box-shadow:
+      0 0 0 3px var(--color-brand-soft),
+      inset 0 1px 2px oklch(var(--shade) / 0.04);
   }
 
   .field[aria-invalid="true"] {
@@ -240,39 +351,39 @@
   }
 
   .field[aria-invalid="true"]:focus {
-    box-shadow: 0 0 0 3px #fbe3e2;
+    box-shadow: 0 0 0 3px var(--color-pill-negative-bg);
   }
 
   textarea.field {
     height: auto;
-    padding: 10px 12px;
+    padding: 12px;
     resize: vertical;
   }
 
   select.field {
-    padding-right: 34px;
+    padding-right: 32px;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%235c6161' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%235b504a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 11px center;
     background-size: 16px;
   }
 
   .field-error {
-    margin-top: 6px;
+    margin-top: 8px;
     font-size: 12px;
-    line-height: 16px;
+    line-height: 18px;
     color: var(--color-negative);
   }
 
-  /* buttons */
+  /* buttons: letterpress cards, not pills */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 8px;
     height: 36px;
-    padding: 0 14px;
+    padding: 0 16px;
     border-radius: var(--radius-control);
     font-size: 13px;
     font-weight: 500;
@@ -281,6 +392,7 @@
       background-color 150ms ease,
       border-color 150ms ease,
       color 150ms ease,
+      box-shadow 150ms ease,
       transform 120ms ease;
   }
 
@@ -295,22 +407,35 @@
 
   .btn-primary {
     background: var(--color-brand);
-    color: var(--color-invert);
+    color: var(--color-brand-ink);
+    box-shadow:
+      inset 0 1px 0 oklch(var(--lit) / 0.35),
+      inset 0 -1px 0 oklch(var(--shade) / 0.14),
+      0 1px 2px oklch(var(--shade) / 0.18);
   }
 
   .btn-primary:hover:not(:disabled) {
-    background: #2a2d2d;
+    background: var(--color-brand-hover);
+    box-shadow:
+      inset 0 1px 0 oklch(var(--lit) / 0.35),
+      inset 0 -1px 0 oklch(var(--shade) / 0.14),
+      0 3px 8px -3px oklch(var(--shade) / 0.34);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    background: var(--color-brand-press);
+    box-shadow: inset 0 2px 3px oklch(var(--shade) / 0.22);
   }
 
   .btn-secondary {
     background: var(--color-surface);
-    border: 1px solid var(--color-control);
     color: var(--color-ink);
+    box-shadow: var(--edge-stock), 0 1px 2px oklch(var(--shade) / 0.08);
   }
 
   .btn-secondary:hover:not(:disabled) {
     background: var(--color-raised);
-    border-color: #b9bdbd;
+    box-shadow: var(--edge-stock), var(--cast-stock);
   }
 
   .btn-ghost {
@@ -326,29 +451,30 @@
   .btn-danger {
     background: var(--color-pill-negative-bg);
     color: var(--color-pill-negative-ink);
+    box-shadow: inset 0 0 0 1px var(--color-pill-negative-edge);
   }
 
   .btn-danger:hover:not(:disabled) {
-    background: #fbdad6;
+    background: var(--color-pill-negative-hover);
   }
 
   .btn-sm {
     height: 30px;
-    padding: 0 10px;
+    padding: 0 12px;
     font-size: 12px;
   }
 
   .btn-lg {
     height: 44px;
-    padding: 0 18px;
+    padding: 0 20px;
     font-size: 14px;
   }
 
-  /* chips / status */
+  /* chips / status: an ink outline, a warm stock, never a fill louder than the primary */
   .pill {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     height: 21px;
     padding: 0 8px;
     border-radius: var(--radius-chip);
@@ -362,6 +488,7 @@
   .pill-positive {
     background: var(--color-pill-positive-bg);
     color: var(--color-pill-positive-ink);
+    box-shadow: inset 0 0 0 1px var(--color-pill-positive-edge);
   }
 
   .pill-negative {
@@ -372,17 +499,56 @@
   .pill-warning {
     background: var(--color-pill-warning-bg);
     color: var(--color-pill-warning-ink);
-    box-shadow: inset 0 0 0 1px #f3dfb6;
+    box-shadow: inset 0 0 0 1px var(--color-pill-warning-edge);
   }
 
   .pill-neutral {
     background: var(--color-pill-neutral-bg);
     color: var(--color-pill-neutral-ink);
+    box-shadow: inset 0 0 0 1px var(--color-pill-neutral-edge);
   }
 
   .pill-hue {
     background: var(--color-pill-hue-bg);
     color: var(--color-pill-hue-ink);
+    box-shadow: inset 0 0 0 1px var(--color-pill-hue-edge);
+  }
+
+  .pill-live {
+    background: var(--color-pill-live-bg);
+    color: var(--color-pill-live-ink);
+    box-shadow: inset 0 0 0 1px var(--color-pill-live-edge);
+  }
+
+  /* A status pill that is also the control to change that status: same look,
+     a working target height. */
+  .pill-control {
+    height: 32px;
+    padding: 0 12px;
+    border-radius: var(--radius-control);
+  }
+
+  /* The settlement rule: the coral pressed into the stock above the figure that is
+     owed or paid, the one place the accent carries a record rather than an action. */
+  .settle-rule {
+    border-top: 2px solid var(--color-brand);
+  }
+
+  /* A text action inside a row keeps the row's type but earns a real target. */
+  .link-button {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-muted);
+    transition: color 150ms ease;
+  }
+
+  .link-button:hover {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 0.16em;
   }
 
   .dot {
@@ -400,6 +566,27 @@
   .surface-step {
     background: var(--color-raised);
     border-radius: var(--radius-control);
+  }
+
+  /* A photograph takes the room's light and never the pointer. */
+  .photo {
+    filter: var(--photo-grade);
+  }
+
+  .photo-scrim {
+    background: linear-gradient(to top, var(--scrim), var(--scrim-mid) 55%, var(--scrim-top));
+  }
+
+  .photo-caption {
+    background: linear-gradient(to top, var(--scrim-deep), var(--scrim-mid-strong) 40%, transparent 78%);
+  }
+
+  .overlay {
+    background: var(--scrim);
+  }
+
+  .overlay-soft {
+    background: var(--scrim-soft);
   }
 
   .skeleton {
@@ -445,7 +632,7 @@
   }
 
   .row-hover:hover {
-    background: #fafbfb;
+    background: var(--color-raised);
   }
 
   .card-pressable {
@@ -455,7 +642,9 @@
   }
 
   .card-pressable:hover {
-    box-shadow: inset 0 0 0 1px var(--color-control);
+    box-shadow:
+      inset 0 0 0 1px var(--color-control),
+      var(--shadow-card);
   }
 
   .card-pressable:active {
@@ -523,7 +712,7 @@
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 4px 14px;
+    gap: 4px 16px;
     font-size: 12px;
     line-height: 16px;
     color: var(--color-muted);
@@ -532,8 +721,15 @@
   .chart-legend li {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     white-space: nowrap;
+  }
+
+  /* One piece of chrome is pinned at a time: the rail is sticky from 64rem up, and
+     below it the phone top bar is fixed over a 48px spacer. Never two sticky tops. */
+  .app-rail {
+    position: sticky;
+    top: 0;
   }
 
   .skip-link {
@@ -541,9 +737,9 @@
     left: 12px;
     top: -60px;
     z-index: 100;
-    background: var(--color-brand);
-    color: var(--color-invert);
-    padding: 10px 14px;
+    background: var(--color-board);
+    color: var(--color-board-type);
+    padding: 12px 16px;
     border-radius: var(--radius-control);
     font-size: 13px;
     font-weight: 500;

@@ -24,7 +24,7 @@ export function AppProviders() {
         pauseOnHover
         draggable={false}
         theme="light"
-        toastClassName="!rounded-[8px] !border !border-line !bg-surface !text-ink !text-[13px] !font-sans !shadow-[0_10px_28px_rgb(17_19_19/0.12)]"
+        toastClassName="!rounded-[8px] !border !border-line !bg-surface !text-ink !text-[13px] !font-sans !shadow-[var(--shadow-pop)]"
         className="!font-sans"
       />
     </AuthProvider>

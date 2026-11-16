@@ -57,8 +57,8 @@ export function RestaurantsPage() {
         </div>
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          {list.map(({ kitchen, own }) => (
-            <RestaurantCard key={kitchen.id} kitchen={kitchen} dishes={own} />
+          {list.map(({ kitchen, own }, index) => (
+            <RestaurantCard key={kitchen.id} kitchen={kitchen} dishes={own} priority={index === 0} />
           ))}
         </div>
       )}

@@ -32,6 +32,56 @@ export const workspaceNav = [
 const isLive = (order: Order) =>
   order.status === 'placed' || order.status === 'preparing' || order.status === 'out_for_delivery'
 
+/** One rail link: the board's own type, the current screen pressed into coral stock. */
+function RailLink({
+  to,
+  label,
+  icon: Icon,
+  end,
+  count,
+  onNavigate,
+}: {
+  to: string
+  label: string
+  icon: typeof LayoutGrid
+  end?: boolean
+  count?: number
+  onNavigate?: () => void
+}) {
+  return (
+    <NavLink
+      to={to}
+      end={end}
+      onClick={onNavigate}
+      className={({ isActive }) =>
+        cn(
+          'group flex h-8 items-center gap-2.5 rounded-[6px] px-2 text-[13px] leading-4 transition-colors',
+          isActive
+            ? 'bg-brand font-medium text-brand-ink shadow-[var(--lit-edge)]'
+            : 'text-board-muted hover:bg-board-2 hover:text-board-type',
+        )
+      }
+    >
+      {({ isActive }) => (
+        <>
+          <Icon size={16} strokeWidth={1.6} className="shrink-0" />
+          <span className="truncate">{label}</span>
+          {count && count > 0 ? (
+            <span
+              className={cn(
+                'num ml-auto rounded-[4px] px-1.5 py-0.5 text-[11px] leading-3 font-medium',
+                isActive ? 'bg-brand-ink text-brand' : 'bg-brand text-brand-ink',
+              )}
+            >
+              {count}
+            </span>
+          ) : null}
+        </>
+      )}
+    </NavLink>
+  )
+}
+
 export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const { orders } = useOrders()
   const liveCount = orders.filter(isLive).length
@@ -41,50 +91,25 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
       <ul className="space-y-0.5">
         {primaryNav.map((item) => (
           <li key={item.to}>
-            <NavLink
+            <RailLink
               to={item.to}
+              label={item.label}
+              icon={item.icon}
               end={item.end}
-              onClick={onNavigate}
-              className={({ isActive }) =>
-                cn(
-                  'flex h-8 items-center gap-2.5 rounded-[6px] px-2 text-[13px] leading-4 transition-colors',
-                  isActive
-                    ? 'bg-active font-medium text-ink'
-                    : 'text-muted hover:bg-raised hover:text-ink',
-                )
-              }
-            >
-              <item.icon size={16} strokeWidth={1.5} className="shrink-0" />
-              <span className="truncate">{item.label}</span>
-              {item.queue && liveCount > 0 ? (
-                <span className="num ml-auto rounded-[3px] bg-ink px-1.5 py-0.5 text-[11px] leading-3 font-medium text-invert">
-                  {liveCount}
-                </span>
-              ) : null}
-            </NavLink>
+              count={item.queue ? liveCount : undefined}
+              onNavigate={onNavigate}
+            />
           </li>
         ))}
       </ul>
 
-      <p className="mt-6 mb-2 px-2 text-[13px] leading-4 text-faint">Service desk</p>
+      <p className="mt-6 mb-2 px-2 text-[11px] leading-4 font-medium text-board-faint">
+        Service desk
+      </p>
       <ul className="space-y-0.5">
         {workspaceNav.map((item) => (
           <li key={item.to}>
-            <NavLink
-              to={item.to}
-              onClick={onNavigate}
-              className={({ isActive }) =>
-                cn(
-                  'flex h-8 items-center gap-2.5 rounded-[6px] px-2 text-[13px] leading-4 transition-colors',
-                  isActive
-                    ? 'bg-active font-medium text-ink'
-                    : 'text-muted hover:bg-raised hover:text-ink',
-                )
-              }
-            >
-              <item.icon size={16} strokeWidth={1.5} className="shrink-0" />
-              <span className="truncate">{item.label}</span>
-            </NavLink>
+            <RailLink to={item.to} label={item.label} icon={item.icon} onNavigate={onNavigate} />
           </li>
         ))}
       </ul>
@@ -92,28 +117,16 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
       <div className="mt-auto pt-6">
         <ul className="space-y-0.5">
           <li>
-            <NavLink
-              to="/profile"
-              onClick={onNavigate}
-              className={({ isActive }) =>
-                cn(
-                  'flex h-8 items-center gap-2.5 rounded-[6px] px-2 text-[13px] leading-4 transition-colors',
-                  isActive ? 'bg-active font-medium text-ink' : 'text-muted hover:bg-raised hover:text-ink',
-                )
-              }
-            >
-              <Settings2 size={16} strokeWidth={1.5} />
-              Profile & settings
-            </NavLink>
+            <RailLink to="/profile" label="Profile & settings" icon={Settings2} onNavigate={onNavigate} />
           </li>
           <li>
             <a
               href="https://dummyjson.com/docs/recipes"
               target="_blank"
               rel="noreferrer"
-              className="flex h-8 items-center gap-2.5 rounded-[6px] px-2 text-[13px] leading-4 text-muted transition-colors hover:bg-raised hover:text-ink"
+              className="flex h-8 items-center gap-2.5 rounded-[6px] px-2 text-[13px] leading-4 text-board-muted transition-colors hover:bg-board-2 hover:text-board-type"
             >
-              <LifeBuoy size={16} strokeWidth={1.5} />
+              <LifeBuoy size={16} strokeWidth={1.6} />
               Catalogue source
             </a>
           </li>

@@ -172,16 +172,16 @@ export function OrdersPage() {
           <>
             <div className="panel overflow-hidden">
               <div className="scroll-x">
-                <table className="w-full min-w-[760px]">
+                <table className="w-full min-w-[420px]">
                   <thead>
                     <tr className="text-left text-[13px] leading-4 text-faint">
                       <th className="px-4 pt-3 pb-2 font-normal">Order</th>
-                      <th className="px-3 pt-3 pb-2 font-normal">Kitchen</th>
-                      <th className="px-3 pt-3 pb-2 font-normal">Promised</th>
-                      <th className="px-3 pt-3 pb-2 font-normal">Status</th>
-                      <th className="px-3 pt-3 pb-2 text-right font-normal">Items</th>
+                      <th className="hidden px-3 pt-3 pb-2 font-normal lg:table-cell">Kitchen</th>
+                      <th className="hidden px-3 pt-3 pb-2 font-normal sm:table-cell">Promised</th>
+                      <th className="hidden px-3 pt-3 pb-2 font-normal sm:table-cell">Status</th>
+                      <th className="hidden px-3 pt-3 pb-2 text-right font-normal xl:table-cell">Items</th>
                       <th className="px-3 pt-3 pb-2 text-right font-normal">Total</th>
-                      <th className="px-4 pt-3 pb-2 text-right font-normal">Action</th>
+                      <th className="px-3 pt-3 pb-2 text-right font-normal sm:px-4">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -203,10 +203,10 @@ export function OrdersPage() {
                               </span>
                             </Link>
                           </td>
-                          <td className="border-t border-rule px-3 py-2.5 text-[13px] leading-4 text-muted">
+                          <td className="hidden border-t border-rule px-3 py-2.5 text-[13px] leading-4 text-muted lg:table-cell">
                             {order.kitchenName}
                           </td>
-                          <td className="border-t border-rule px-3 py-2.5">
+                          <td className="hidden border-t border-rule px-3 py-2.5 sm:table-cell">
                             <span className="num block text-[13px] leading-4">{formatClock(order.promisedAt)}</span>
                             <span
                               className={cn(
@@ -223,10 +223,10 @@ export function OrdersPage() {
                                   : 'served'}
                             </span>
                           </td>
-                          <td className="border-t border-rule px-3 py-2.5">
+                          <td className="hidden border-t border-rule px-3 py-2.5 sm:table-cell">
                             <OrderPill status={order.status} />
                           </td>
-                          <td className="num border-t border-rule px-3 py-2.5 text-right text-[13px] leading-4 text-muted">
+                          <td className="num hidden border-t border-rule px-3 py-2.5 text-right text-[13px] leading-4 text-muted xl:table-cell">
                             {order.items.reduce((sum, item) => sum + item.qty, 0)}
                           </td>
                           <td className="num border-t border-rule px-3 py-2.5 text-right text-[13px] leading-4 font-medium">

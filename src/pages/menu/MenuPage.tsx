@@ -167,7 +167,7 @@ export function MenuPage() {
           <option value="rating">Highest rated</option>
           <option value="price-asc">Price, low first</option>
           <option value="price-desc">Price, high first</option>
-          <option value="name">Name A–Z</option>
+          <option value="name">Name, A to Z</option>
         </select>
         <div className="inline-flex h-9 items-center gap-0.5 rounded-[6px] bg-sunken p-0.5" role="group" aria-label="Filter by availability">
           {(

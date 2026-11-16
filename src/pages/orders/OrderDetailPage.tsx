@@ -150,8 +150,8 @@ export function OrderDetailPage() {
                     alt=""
                     width={44}
                     height={44}
-                    loading="lazy"
-                    className="h-11 w-11 rounded-[4px] object-cover"
+                    loading="eager" fetchPriority="high"
+                    className="photo h-11 w-11 rounded-[4px] object-cover"
                   />
                   <div className="min-w-0 flex-1">
                     <p className="flex items-center gap-1.5 text-[13px] leading-4 font-medium">

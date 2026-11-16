@@ -85,7 +85,7 @@ export function DishDetailPage() {
               <img
                 src={dish.image}
                 alt={dish.name}
-                className="h-full w-full object-cover"
+                className="photo h-full w-full object-cover"
                 width={960}
                 height={480}
               />
@@ -344,7 +344,7 @@ export function DishDetailPage() {
                         width={36}
                         height={36}
                         loading="lazy"
-                        className="h-9 w-9 rounded-[3px] object-cover"
+                        className="photo h-9 w-9 rounded-[3px] object-cover"
                       />
                     </Link>
                     <div className="min-w-0 flex-1">

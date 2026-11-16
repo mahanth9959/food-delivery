@@ -75,8 +75,8 @@ export function CartPage() {
                             alt=""
                             width={40}
                             height={40}
-                            loading="lazy"
-                            className="h-10 w-10 rounded-[4px] object-cover"
+                            loading="eager" fetchPriority="high"
+                            className="photo h-10 w-10 rounded-[4px] object-cover"
                           />
                         </Link>
                         <div className="min-w-0 flex-1">
@@ -236,7 +236,7 @@ export function CartPage() {
                       width={56}
                       height={56}
                       loading="lazy"
-                      className="h-14 w-14 rounded-[4px] object-cover"
+                      className="photo h-14 w-14 rounded-[4px] object-cover"
                     />
                   </Link>
                   <div className="min-w-0 flex-1">

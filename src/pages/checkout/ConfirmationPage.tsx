@@ -36,8 +36,11 @@ export function ConfirmationPage() {
   return (
     <div className="app-fade mx-auto max-w-[820px]">
       <div className="flex flex-col items-center pt-2 pb-5 text-center">
-        <span className="grid h-12 w-12 place-items-center rounded-full bg-pill-positive-bg text-pill-positive-ink">
-          <Check size={24} strokeWidth={2.4} />
+        <span className="relative grid h-14 w-14 place-items-center rounded-full bg-brand-soft text-brand-ink ring-1 ring-brand/40">
+          <TiffinMark size={26} className="text-brand-deep" />
+          <span className="absolute -right-1 -bottom-1 grid h-6 w-6 place-items-center rounded-full bg-positive text-invert ring-2 ring-surface">
+            <Check size={13} strokeWidth={3} />
+          </span>
         </span>
         <h1 className="mt-3 text-[26px] leading-8 font-semibold tracking-[-0.02em]">
           The tiffin is with the kitchen

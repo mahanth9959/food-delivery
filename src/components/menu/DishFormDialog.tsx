@@ -297,7 +297,7 @@ export function DishFormDialog({
             <img
               src={formImage || preview}
               alt=""
-              className="h-full w-full object-cover"
+              className="photo h-full w-full object-cover"
               width={240}
               height={180}
             />
@@ -316,7 +316,7 @@ export function DishFormDialog({
                     onChange: (event) => setPreview(event.target.value),
                   })}
                 />
-                <img src={entry} alt="" className="h-12 w-full object-cover" loading="lazy" />
+                <img src={entry} alt="" className="photo h-12 w-full object-cover" loading="lazy" />
               </label>
             ))}
           </div>

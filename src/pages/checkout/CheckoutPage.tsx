@@ -184,7 +184,7 @@ export function CheckoutPage() {
                   <button
                     type="button"
                     onClick={() => setAdding(true)}
-                    className="flex min-h-[84px] items-center justify-center gap-1.5 rounded-[6px] border border-dashed border-control text-[13px] font-medium text-muted transition-colors hover:bg-raised hover:text-ink"
+                    className="flex min-h-[84px] items-center justify-center gap-1.5 rounded-[6px] border border-dashed border-control bg-surface/60 text-[13px] font-medium text-muted transition-colors hover:border-brand-deep hover:bg-brand-wash hover:text-ink"
                   >
                     <MapPin size={14} strokeWidth={1.6} />
                     Add an address
@@ -281,8 +281,8 @@ export function CheckoutPage() {
                       alt=""
                       width={36}
                       height={36}
-                      loading="lazy"
-                      className="h-9 w-9 rounded-[3px] object-cover"
+                      loading="eager" fetchPriority="high"
+                      className="photo h-9 w-9 rounded-[3px] object-cover"
                     />
                     <div className="min-w-0 flex-1">
                       <p className="flex items-center gap-1.5 text-[13px] leading-4 font-medium">
@@ -331,7 +331,7 @@ export function CheckoutPage() {
                   <dd className="num font-medium">{formatINRPrecise(pricing.tax)}</dd>
                 </div>
               </dl>
-              <div className="mt-3 flex items-baseline justify-between gap-3 border-t border-line pt-3">
+              <div className="settle-rule mt-3 flex items-baseline justify-between gap-3 pt-3">
                 <p className="text-[13px] leading-5 font-semibold">To pay</p>
                 <p className="num text-[22px] leading-7 font-semibold">{formatINRPrecise(pricing.total)}</p>
               </div>

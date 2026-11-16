@@ -73,7 +73,8 @@ export function ProfilePage() {
     window.setTimeout(() => setPasswordSaved(false), 2400)
   }
 
-  const avatarTone = ['#e9edf2', '#eceee9', '#f2ecec', '#eceaf2'][user.name.length % 4]
+  const avatarTone = ['var(--color-avatar-1-bg)', 'var(--color-avatar-2-bg)', 'var(--color-avatar-3-bg)', 'var(--color-avatar-4-bg)'][user.name.length % 4]
+  const avatarInk = ['var(--color-avatar-1-ink)', 'var(--color-avatar-2-ink)', 'var(--color-avatar-3-ink)', 'var(--color-avatar-4-ink)'][user.name.length % 4]
 
   return (
     <div className="app-fade mx-auto max-w-[1080px]">
@@ -102,7 +103,7 @@ export function ProfilePage() {
               <span className="relative">
                 <span
                   className="grid h-14 w-14 place-items-center rounded-full text-[18px] font-semibold"
-                  style={{ background: avatarTone }}
+                  style={{ background: avatarTone, color: avatarInk }}
                   aria-hidden="true"
                 >
                   {avatar ? (

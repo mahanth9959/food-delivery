@@ -154,14 +154,14 @@ export function RestaurantDetailPage() {
               <img
                 src={hero.image}
                 alt={`${hero.name}, the kitchen's signature dish`}
-                className="h-full w-full object-cover lg:absolute lg:inset-0"
+                className="photo h-full w-full object-cover lg:absolute lg:inset-0"
                 width={640}
                 height={480}
               />
               {/* Neutral scrim only, so the caption stays legible on the photograph. */}
-              <div className="taste-skill-ignore absolute inset-x-0 bottom-0 bg-[linear-gradient(to_top,rgb(17_19_19/0.62),transparent)] p-3.5">
-                <p className="text-[13px] leading-4 text-white/75">Most ordered from this kitchen</p>
-                <p className="text-[13px] leading-5 font-medium text-white">
+              <div className="photo-caption absolute inset-x-0 bottom-0 p-3.5">
+                <p className="text-[12px] leading-4 text-invert/80">Most ordered from this kitchen</p>
+                <p className="text-[13px] leading-5 font-medium text-invert">
                   {hero.name} · {formatINR(hero.price)}
                 </p>
               </div>
@@ -199,7 +199,7 @@ export function RestaurantDetailPage() {
             <option value="rating">Highest rated</option>
             <option value="price-asc">Price, low first</option>
             <option value="price-desc">Price, high first</option>
-            <option value="name">Name A–Z</option>
+            <option value="name">Name, A to Z</option>
           </select>
         </label>
         <span className="text-[13px] leading-4 text-faint sm:ml-auto">

@@ -33,8 +33,8 @@ export function DishRow({
             alt=""
             width={44}
             height={44}
-            loading="lazy"
-            className="h-11 w-11 rounded-[4px] object-cover"
+            loading="eager" fetchPriority="high"
+            className="photo h-11 w-11 rounded-[4px] object-cover"
           />
         </Link>
         <div className="min-w-0 flex-1">
@@ -68,7 +68,7 @@ export function DishRow({
             onClick={onToggle}
             aria-pressed={!dish.available}
             className={cn(
-              'pill max-w-full transition-colors',
+              'pill pill-control max-w-full transition-colors',
               dish.available ? 'pill-positive' : 'pill-warning',
             )}
             title={dish.available ? 'Mark sold out' : 'Put back on sale'}

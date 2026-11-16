@@ -45,7 +45,7 @@ The demo manager account is filled in on the sign-in screen, or use it directly:
 
 ```
 src/
-  assets/       self-hosted Geist, bundled dish photographs, the credited dabbawala photograph
+  assets/       self-hosted General Sans and Geist Mono, bundled dish photographs, the credited dabbawala photograph
   components/   brand, cart, catalog, dashboard, layout, menu, orders and ui building blocks
   context/      Auth, Catalog, Orders and Cart providers
   data/         kitchens, prices, customers, the seeded evening, the bundled API snapshot
@@ -68,15 +68,20 @@ src/
 
 ## Design
 
-The interface follows the "achromatic ledger" direction: a steel ground drawn from the tiffin carrier,
-white panels, near-black chrome, and one chart hue on the data that answers the screen's question. The
-mark is a three-tier tiffin, and the order tracker uses the same stack. Type is Geist, with Geist Mono
-for order IDs only. Screens are built from a small set of primitives, so hover, focus, loading, empty and
-error states share one language.
+The interface follows the "dinner service on coral stock" direction: a warm grey desk, cotton sheets laid
+on it, and one ink board down the left carrying the rail. Coral is the signal, pressed into stock for the
+primary action, the current screen and the evening's live exceptions; food on time reports green, a late
+order red, a rider on the road teal. The mark is a three-tier tiffin, and the order tracker and the
+confirmation stamp use the same stack. Type is General Sans, with Geist Mono for order IDs and figures.
+Screens are built from a small set of primitives, so hover, focus, loading, empty and error states share
+one language.
+
+The system is declared once in `src/index.css`: an `@theme` block of colour, type, radius and shadow
+tokens, then the components that consume them. Every route inherits a change made there.
 
 ## Credits
 
 - Dish photographs and base recipes: [DummyJSON](https://dummyjson.com/docs/recipes).
 - "Dabbawala" by Joe Zachs, CC BY 2.0, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Dabbawala.jpg).
-- Geist and Geist Mono by Basement Studio and Vercel, SIL Open Font License, self-hosted.
+- General Sans by Indian Type Foundry, ITF Free Font License, self-hosted (Fontshare). Geist Mono by Basement Studio and Vercel, SIL Open Font License, self-hosted.
 - Icons: [Lucide](https://lucide.dev), ISC.

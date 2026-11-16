@@ -177,31 +177,27 @@ export function OrderHistoryPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 rounded-b-[8px] bg-raised px-4 py-2">
+                <div className="flex flex-wrap items-center gap-3 rounded-b-[8px] bg-raised px-4 py-2">
                   <button
                     type="button"
-                    className="text-[13px] font-medium text-muted transition-colors hover:text-ink"
+                    className="link-button"
                     onClick={() => setInvoice(order)}
                   >
                     View receipt
                   </button>
-                  <span className="text-control" aria-hidden="true">
-                    ·
-                  </span>
+                  <span className="h-3.5 w-px bg-line" aria-hidden="true" />
                   <Link
                     to={`/orders/${order.id}`}
-                    className="text-[13px] font-medium text-muted transition-colors hover:text-ink"
+                    className="link-button"
                   >
                     Order details
                   </Link>
                   {order.status !== 'cancelled' ? (
                     <>
-                      <span className="text-control" aria-hidden="true">
-                        ·
-                      </span>
+                      <span className="h-3.5 w-px bg-line" aria-hidden="true" />
                       <Link
                         to="/menu"
-                        className="text-[13px] font-medium text-muted transition-colors hover:text-ink"
+                        className="link-button"
                       >
                         Reorder
                       </Link>

@@ -156,21 +156,27 @@ export function DashboardPage() {
 
       <KpiStrip cells={kpis} />
 
-      <ul className="mt-3 grid grid-cols-1 gap-px overflow-hidden rounded-[8px] bg-line p-px sm:grid-cols-2 xl:grid-cols-4">
+      <ul className="mt-3 grid grid-cols-1 gap-px overflow-hidden rounded-[8px] bg-line p-px shadow-[var(--shadow-card)] sm:grid-cols-2 xl:grid-cols-4">
         {quickActions.map((action) => (
           <li key={action.to} className="bg-surface">
             <Link
               to={action.to}
-              className="flex h-full items-center gap-2.5 px-3.5 py-3 transition-colors hover:bg-raised"
+              className="group flex h-full items-center gap-3 px-3.5 py-3 transition-colors hover:bg-raised"
             >
-              <action.icon size={16} strokeWidth={1.5} className="shrink-0 text-muted" />
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-[6px] bg-brand-soft text-brand-deep transition-colors group-hover:bg-brand group-hover:text-brand-ink">
+                <action.icon size={15} strokeWidth={1.8} />
+              </span>
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-[13px] leading-4 font-medium">{action.label}</span>
                 <span className="mt-0.5 block truncate text-[12px] leading-4 text-faint">
                   {action.detail}
                 </span>
               </span>
-              <ArrowUpRight size={13} strokeWidth={1.6} className="shrink-0 text-control" />
+              <ArrowUpRight
+                size={13}
+                strokeWidth={1.8}
+                className="shrink-0 text-control transition-colors group-hover:text-brand-deep"
+              />
             </Link>
           </li>
         ))}
@@ -178,19 +184,19 @@ export function DashboardPage() {
 
       <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,1.55fr)_minmax(320px,1fr)]">
         <Panel className="overflow-hidden">
-          <header className="flex flex-wrap items-baseline justify-between gap-2 px-4 pt-4 sm:px-5">
+          <header className="flex flex-wrap items-baseline justify-between gap-2 border-b border-rule px-4 pt-4 pb-3 sm:px-5">
             <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
               <h2 className="text-[15px] leading-5 font-semibold">Takings by evening</h2>
-              <span className="text-[13px] leading-4 text-faint">Paid orders, 17:00 to close</span>
+              <span className="text-[13px] leading-5 text-faint">Paid orders, 17:00 to close</span>
             </div>
-            <div className="inline-flex h-7 items-center rounded-[5px] bg-sunken p-0.5" role="group" aria-label="Evenings shown">
+            <div className="inline-flex h-8 items-center rounded-[6px] bg-sunken p-0.5" role="group" aria-label="Evenings shown">
               {(['7', '4'] as const).map((option) => (
                 <button
                   key={option}
                   type="button"
                   onClick={() => setRange(option)}
                   aria-pressed={range === option}
-                  className={`h-6 rounded-[4px] px-2 text-[13px] font-medium transition-colors ${
+                  className={`h-7 rounded-[4px] px-2.5 text-[13px] font-medium transition-colors ${
                     range === option ? 'bg-surface text-ink' : 'text-muted hover:text-ink'
                   }`}
                 >
@@ -237,12 +243,12 @@ export function DashboardPage() {
             />
           </div>
             <div className="scroll-x">
-              <table className="w-full min-w-[620px]">
+              <table className="w-full min-w-[380px]">
                 <thead>
                   <tr className="text-left text-[13px] leading-4 text-faint">
                     <th className="px-4 pb-2 font-normal sm:px-5">Order</th>
-                    <th className="px-3 pb-2 font-normal">Kitchen</th>
-                    <th className="px-3 pb-2 font-normal">Placed</th>
+                    <th className="hidden px-3 pb-2 font-normal sm:table-cell">Kitchen</th>
+                    <th className="hidden px-3 pb-2 font-normal lg:table-cell">Placed</th>
                     <th className="px-3 pb-2 font-normal">Status</th>
                     <th className="px-4 pb-2 text-right font-normal sm:px-5">Total</th>
                   </tr>
@@ -260,10 +266,10 @@ export function DashboardPage() {
                           </span>
                         </Link>
                       </td>
-                      <td className="border-t border-rule px-3 py-2.5 text-[13px] leading-4 text-muted">
+                      <td className="hidden border-t border-rule px-3 py-2.5 text-[13px] leading-4 text-muted sm:table-cell">
                         {order.kitchenName}
                       </td>
-                      <td className="num border-t border-rule px-3 py-2.5 text-[13px] leading-4 text-muted">
+                      <td className="num hidden border-t border-rule px-3 py-2.5 text-[13px] leading-4 text-muted lg:table-cell">
                         {minutesUntil(order.placedAt) > -600
                           ? `${formatMinutes(Math.abs(minutesUntil(order.placedAt)))} ago`
                           : formatClock(order.placedAt)}

@@ -2,7 +2,7 @@ import { Check } from 'lucide-react'
 import { cn } from '../../lib/cn'
 import type { OrderStatus, PaymentStatus } from '../../types'
 
-type Tone = 'positive' | 'negative' | 'warning' | 'neutral' | 'hue'
+type Tone = 'positive' | 'negative' | 'warning' | 'neutral' | 'hue' | 'live'
 
 const toneClass: Record<Tone, string> = {
   positive: 'pill pill-positive',
@@ -10,6 +10,7 @@ const toneClass: Record<Tone, string> = {
   warning: 'pill pill-warning',
   neutral: 'pill pill-neutral',
   hue: 'pill pill-hue',
+  live: 'pill pill-live',
 }
 
 export function Pill({
@@ -34,7 +35,7 @@ export function Pill({
 const orderTone: Record<OrderStatus, Tone> = {
   placed: 'neutral',
   preparing: 'warning',
-  out_for_delivery: 'hue',
+  out_for_delivery: 'live',
   delivered: 'positive',
   cancelled: 'negative',
 }
