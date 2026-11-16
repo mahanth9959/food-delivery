@@ -145,6 +145,7 @@ export function PaymentPage() {
     if (method === 'wallet') adjustWallet(-pricing.total)
 
     const order = placeOrder({
+      placedBy: user?.id ?? null,
       kitchenId: cart.kitchenId ?? 'k-tiffin',
       kitchenName: cart.kitchenName ?? 'Tiffin & Co.',
       kitchenArea: draft.address.area,

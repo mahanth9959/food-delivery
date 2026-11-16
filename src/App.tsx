@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { AppProviders } from './components/layout/AppProviders'
 import { ProtectedLayout } from './components/layout/ProtectedLayout'
 import { PublicOnlyRoute } from './routes/ProtectedRoute'
+import { AdminRoute } from './routes/AdminRoute'
+import { OrderAccessRoute } from './routes/OrderAccessRoute'
 import { PageSkeleton } from './components/ui/PageSkeleton'
 import { RouteError } from './components/ui/RouteError'
 
@@ -61,18 +63,18 @@ const router = createBrowserRouter([
       {
         element: <ProtectedLayout />,
         children: [
-          { path: '/', element: wrap(<DashboardPage />) },
+          { path: '/', element: wrap(<AdminRoute><DashboardPage /></AdminRoute>) },
           { path: '/restaurants', element: wrap(<RestaurantsPage />) },
           { path: '/restaurants/:slug', element: wrap(<RestaurantDetailPage />) },
-          { path: '/menu', element: wrap(<MenuPage />) },
+          { path: '/menu', element: wrap(<AdminRoute><MenuPage /></AdminRoute>) },
           { path: '/menu/:dishId', element: wrap(<DishDetailPage />) },
           { path: '/cart', element: wrap(<CartPage />) },
           { path: '/checkout', element: wrap(<CheckoutPage />) },
           { path: '/checkout/payment', element: wrap(<PaymentPage />) },
-          { path: '/orders', element: wrap(<OrdersPage />) },
-          { path: '/orders/:orderId', element: wrap(<OrderDetailPage />) },
-          { path: '/orders/:orderId/confirmed', element: wrap(<ConfirmationPage />) },
-          { path: '/customers', element: wrap(<CustomersPage />) },
+          { path: '/orders', element: wrap(<AdminRoute><OrdersPage /></AdminRoute>) },
+          { path: '/orders/:orderId', element: wrap(<OrderAccessRoute><OrderDetailPage /></OrderAccessRoute>) },
+          { path: '/orders/:orderId/confirmed', element: wrap(<OrderAccessRoute><ConfirmationPage /></OrderAccessRoute>) },
+          { path: '/customers', element: wrap(<AdminRoute><CustomersPage /></AdminRoute>) },
           { path: '/profile', element: wrap(<ProfilePage />) },
           { path: '/order-history', element: wrap(<OrderHistoryPage />) },
           { path: '*', element: wrap(<NotFoundPage />) },

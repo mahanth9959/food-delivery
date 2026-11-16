@@ -8,6 +8,10 @@ const DEMO_EMAIL = 'arjun@dabba.test'
 const DEMO_PASSWORD = 'dabba1234'
 const DEMO_HASH = '75bf5cae43ddf5622fac8e1c85f3b48558de381490539a0e8f130cb6bebb0556'
 
+/** The customer demo account: same password, a shopper's view of the same service. */
+const CUSTOMER_EMAIL = 'priya@dabba.test'
+const CUSTOMER_HASH = 'a76a1cd74cbceb84cf8787dc273a7362f3ecf56ccb4cfecdcf31f8fb9efef120'
+
 const defaultAddresses: Address[] = [
   {
     id: 'addr-office',
@@ -38,19 +42,52 @@ const demoUser: StoredUser = {
   phone: '+91 98200 41192',
   passwordHash: DEMO_HASH,
   role: 'Service manager',
+  access: 'admin',
   avatar: null,
   wallet: 1250,
   addresses: defaultAddresses,
   createdAt: '2026-08-19T09:00:00.000Z',
 }
 
+const customerUser: StoredUser = {
+  id: 'u-demo-customer',
+  name: 'Priya Menon',
+  email: CUSTOMER_EMAIL,
+  phone: '+91 98201 77340',
+  passwordHash: CUSTOMER_HASH,
+  role: 'Customer',
+  access: 'customer',
+  avatar: null,
+  wallet: 800,
+  addresses: [
+    {
+      id: 'addr-priya-home',
+      label: 'Home',
+      line1: 'Flat 402, Ashoka Towers, S.V. Road',
+      line2: 'Khar West',
+      area: 'Khar West',
+      city: 'Mumbai',
+      pincode: '400052',
+      isDefault: true,
+    },
+  ],
+  createdAt: '2026-09-02T11:30:00.000Z',
+}
+
+/** One password opens both demo accounts; the sign-in card states them. */
 export const demoCredentials = { email: DEMO_EMAIL, password: DEMO_PASSWORD }
+export const customerCredentials = { email: CUSTOMER_EMAIL, password: DEMO_PASSWORD }
 
 function seedUsers(): StoredUser[] {
-  const existing = readStorage<StoredUser[]>(storageKeys.users, [])
-  if (existing.some((user) => user.email.toLowerCase() === DEMO_EMAIL)) return existing
-  const next = [demoUser, ...existing]
-  writeStorage(storageKeys.users, next)
+  const stored = readStorage<StoredUser[]>(storageKeys.users, [])
+  // Accounts written before the split carry no `access`; they were all console
+  // accounts, so they become admin rather than losing their screens.
+  const existing = stored.map((user) => ({ ...user, access: user.access ?? 'admin' }))
+  const missing = [demoUser, customerUser].filter(
+    (seed) => !existing.some((user) => user.email.toLowerCase() === seed.email.toLowerCase()),
+  )
+  const next = [...missing, ...existing]
+  if (missing.length || next.length !== stored.length) writeStorage(storageKeys.users, next)
   return next
 }
 
@@ -61,6 +98,7 @@ export function toProfile(user: StoredUser): UserProfile {
     email: user.email,
     phone: user.phone,
     role: user.role,
+    access: user.access,
     avatar: user.avatar,
     wallet: user.wallet,
     addresses: user.addresses,
@@ -133,6 +171,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         phone: input.phone.trim(),
         passwordHash,
         role: 'Shift lead',
+        access: 'admin',
         avatar: null,
         wallet: 500,
         addresses: [],

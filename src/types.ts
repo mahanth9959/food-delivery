@@ -93,13 +93,17 @@ export interface Address {
   isDefault: boolean
 }
 
+/** What the account may reach. `role` stays the job title a person reads. */
+export type Access = 'admin' | 'customer'
+
 export interface StoredUser {
   id: string
   name: string
   email: string
   phone: string
   passwordHash: string
-  role: 'Service manager' | 'Shift lead'
+  role: 'Service manager' | 'Shift lead' | 'Customer'
+  access: Access
   avatar: string | null
   wallet: number
   addresses: Address[]
@@ -116,7 +120,8 @@ export interface UserProfile {
   name: string
   email: string
   phone: string
-  role: 'Service manager' | 'Shift lead'
+  role: 'Service manager' | 'Shift lead' | 'Customer'
+  access: Access
   avatar: string | null
   wallet: number
   addresses: Address[]
@@ -190,6 +195,8 @@ export interface TimelineEntry {
 export interface Order {
   id: string
   demoSeed: boolean
+  /** The account that placed it. Null on the seeded board, which no one owns. */
+  placedBy?: string | null
   kitchenId: string
   kitchenName: string
   kitchenArea: string
@@ -270,6 +277,7 @@ export interface AuthValue {
 export interface OrdersValue {
   orders: Order[]
   placeOrder: (input: {
+    placedBy?: string | null
     kitchenId: string
     kitchenName: string
     kitchenArea: string

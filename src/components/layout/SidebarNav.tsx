@@ -13,9 +13,9 @@ import {
 } from 'lucide-react'
 import { cn } from '../../lib/cn'
 import type { Order } from '../../types'
-import { useOrders } from '../../hooks/useApp'
+import { useAuth, useOrders } from '../../hooks/useApp'
 
-export const primaryNav = [
+const adminNav = [
   { to: '/', label: 'Overview', icon: LayoutGrid, end: true },
   { to: '/orders', label: 'Orders', icon: ClipboardList, end: false, queue: true },
   { to: '/restaurants', label: 'Restaurants', icon: Store, end: false },
@@ -23,10 +23,21 @@ export const primaryNav = [
   { to: '/customers', label: 'Customers', icon: Users, end: false },
 ]
 
-export const workspaceNav = [
+/** A customer sees the shop, not the service desk. */
+const customerNav = [
+  { to: '/restaurants', label: 'Restaurants', icon: Store, end: false },
+]
+
+const adminWorkspace = [
   { to: '/cart', label: 'Basket', icon: ShoppingBasket },
   { to: '/checkout', label: 'Checkout', icon: ReceiptText },
   { to: '/order-history', label: 'Order history', icon: Tags },
+]
+
+const customerWorkspace = [
+  { to: '/cart', label: 'Basket', icon: ShoppingBasket },
+  { to: '/checkout', label: 'Checkout', icon: ReceiptText },
+  { to: '/order-history', label: 'My orders', icon: Tags },
 ]
 
 const isLive = (order: Order) =>
@@ -84,7 +95,11 @@ function RailLink({
 
 export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const { orders } = useOrders()
+  const { user } = useAuth()
+  const admin = user?.access === 'admin'
   const liveCount = orders.filter(isLive).length
+  const primaryNav = admin ? adminNav : customerNav
+  const workspaceNav = admin ? adminWorkspace : customerWorkspace
 
   return (
     <nav aria-label="Main" className="flex flex-1 flex-col">
@@ -96,7 +111,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
               label={item.label}
               icon={item.icon}
               end={item.end}
-              count={item.queue ? liveCount : undefined}
+              count={'queue' in item && item.queue ? liveCount : undefined}
               onNavigate={onNavigate}
             />
           </li>
@@ -104,7 +119,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
       </ul>
 
       <p className="mt-6 mb-2 px-2 text-[11px] leading-4 font-medium text-board-faint">
-        Service desk
+        {admin ? 'Service desk' : 'Your order'}
       </p>
       <ul className="space-y-0.5">
         {workspaceNav.map((item) => (

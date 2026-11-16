@@ -18,13 +18,20 @@ pnpm preview      # serve the production build
 pnpm lint         # oxlint over the source
 ```
 
-The demo manager account is filled in on the sign-in screen, or use it directly:
+Two demo accounts, both on the sign-in card, share one password:
 
-| Email | Password |
-| --- | --- |
-| `arjun@dabba.test` | `dabba1234` |
+| Account | Email | Password | Reaches |
+| --- | --- | --- | --- |
+| Service manager (admin) | `arjun@dabba.test` | `dabba1234` | The whole console: dashboard, live board, menu management, customers, every order |
+| Customer | `priya@dabba.test` | `dabba1234` | The shop floor: browse kitchens, basket, checkout, and only their own orders |
 
-`?demo=1` on any screen signs that account in automatically, for share links and screenshots.
+Accounts are gated by an `access` field (`admin` or `customer`) kept separately from the job-title
+`role` shown in the rail. A customer reaching a management route is sent back to the roster; a customer
+opening an order they did not place is sent to their own history. Accounts created before this split are
+migrated to `admin`, so no existing session loses its screens. An account registered through the form is
+a shift lead with console access.
+
+`?demo=1` on any screen signs in the manager account automatically, for share links and screenshots.
 
 ## Modules
 

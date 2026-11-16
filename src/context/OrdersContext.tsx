@@ -76,7 +76,13 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
       payment: input.payment,
       rider: input.rider,
     })
-    const withItems: Order = { ...order, items: input.items, kitchenArea: input.kitchenArea, promisedAt: input.promisedAt }
+    const withItems: Order = {
+      ...order,
+      items: input.items,
+      kitchenArea: input.kitchenArea,
+      promisedAt: input.promisedAt,
+      placedBy: input.placedBy ?? null,
+    }
     setOrders((prev) => [withItems, ...prev])
     return withItems
   }, [])

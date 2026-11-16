@@ -6,7 +6,7 @@ import { PageHeader } from '../../components/ui/Page'
 import { EmptyState } from '../../components/ui/Feedback'
 import { OrderPill, PaymentPill } from '../../components/ui/Status'
 import { Modal } from '../../components/ui/Modal'
-import { useCatalog, useOrders } from '../../hooks/useApp'
+import { useAuth, useCatalog, useOrders } from '../../hooks/useApp'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { filterOrders, sortOrdersNewest } from '../../lib/analytics'
 import { formatINR, formatINRPrecise, formatRelative } from '../../lib/format'
@@ -25,15 +25,26 @@ const statusOptions: { id: 'all' | OrderStatus; label: string }[] = [
 const PAGE = 12
 
 export function OrderHistoryPage() {
-  useDocumentTitle('Order history')
-  const { orders } = useOrders()
+  const { user } = useAuth()
+  const admin = user?.access === 'admin'
+  useDocumentTitle(admin ? 'Order history' : 'My orders')
+  const { orders: allOrders } = useOrders()
+  // A customer reads their own receipts and nothing else. The seeded board and
+  // every other account's orders stay on the service desk.
+  const orders = useMemo(
+    () => (admin ? allOrders : allOrders.filter((order) => order.placedBy && order.placedBy === user?.id)),
+    [admin, allOrders, user?.id],
+  )
   const { kitchens } = useCatalog()
   const [query, setQuery] = useState('')
-  const [tab, setTab] = useState<'all' | 'month' | 'week'>('month')
+  const [tab, setTab] = useState<'all' | 'month' | 'week'>(admin ? 'month' : 'all')
   const [status, setStatus] = useState<'all' | OrderStatus>('all')
   const [kitchenId, setKitchenId] = useState('all')
   const [invoice, setInvoice] = useState<Order | null>(null)
   const [shown, setShown] = useState(PAGE)
+  // Captured once: a render must not read the clock, and the window only needs
+  // to be right when the page opens.
+  const [monthCutoff] = useState(() => Date.now() - 31 * 86400000)
 
   const visible = useMemo(() => {
     const filtered = filterOrders(orders, {
@@ -43,10 +54,10 @@ export function OrderHistoryPage() {
       day: tab === 'week' ? 'week' : 'all',
     }).filter((order) => {
       if (tab !== 'month') return true
-      return Date.now() - new Date(order.placedAt).getTime() < 31 * 86400000
+      return new Date(order.placedAt).getTime() >= monthCutoff
     })
     return sortOrdersNewest(filtered)
-  }, [orders, query, status, kitchenId, tab])
+  }, [orders, query, status, kitchenId, tab, monthCutoff])
 
   const spent = visible
     .filter((order) => order.payment.status === 'paid')
@@ -56,7 +67,7 @@ export function OrderHistoryPage() {
   return (
     <div className="app-fade">
       <PageHeader
-        title="Order history"
+        title={admin ? 'Order history' : 'My orders'}
         finding={
           <>
             {visible.length} orders in this view, {formatINR(spent)} paid, {cancelled} cancelled. Every

@@ -5,7 +5,7 @@ import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import { toast } from 'react-toastify'
 import { AuthLayout } from '../../components/brand/AuthLayout'
 import { useAuth } from '../../hooks/useApp'
-import { demoCredentials } from '../../context/AuthContext'
+import { customerCredentials, demoCredentials } from '../../context/AuthContext'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 
 type SessionChoice = 'device' | 'tab'
@@ -42,31 +42,58 @@ export function LoginPage() {
       toast.error('Sign-in failed. Check the email and password.')
       return
     }
-    toast.success('Signed in. Tonight’s service is on the board.')
+    toast.success('Signed in.')
     navigate(from, { replace: true })
   }
 
-  const fillDemo = () => {
-    setValue('email', demoCredentials.email, { shouldValidate: true })
-    setValue('password', demoCredentials.password, { shouldValidate: true })
+  const fillDemo = (which: 'manager' | 'customer') => {
+    const account = which === 'manager' ? demoCredentials : customerCredentials
+    setValue('email', account.email, { shouldValidate: true })
+    setValue('password', account.password, { shouldValidate: true })
   }
 
   return (
     <AuthLayout
       title="Sign in to the dinner board"
-      subtitle="One account runs the evening service, the menu and the customer flows."
+      subtitle="A manager runs the evening service. A customer browses kitchens, orders and follows their own tiffin."
     >
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div className="mb-4 flex items-start justify-between gap-3 rounded-[6px] bg-sunken px-3 py-2.5">
-          <div>
-            <p className="text-[13px] leading-4 font-medium">Demo manager account</p>
-            <p className="mt-0.5 text-[13px] leading-4 text-muted">
-              {demoCredentials.email} · {demoCredentials.password}
-            </p>
+        <div className="mb-4 space-y-2 rounded-[6px] bg-sunken px-3 py-2.5">
+          <p className="text-[13px] leading-4 font-medium">Two demo accounts</p>
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-[12px] leading-4 text-muted">
+                <span className="font-medium text-ink">Manager</span>, the whole console
+              </p>
+              <p className="truncate text-[12px] leading-4 text-faint">
+                {demoCredentials.email} · {demoCredentials.password}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => fillDemo('manager')}
+              className="btn btn-secondary btn-sm shrink-0"
+            >
+              Use it
+            </button>
           </div>
-          <button type="button" onClick={fillDemo} className="btn btn-secondary btn-sm shrink-0">
-            Use it
-          </button>
+          <div className="flex items-center justify-between gap-3 border-t border-line pt-2">
+            <div className="min-w-0">
+              <p className="text-[12px] leading-4 text-muted">
+                <span className="font-medium text-ink">Customer</span>, the shop and their orders
+              </p>
+              <p className="truncate text-[12px] leading-4 text-faint">
+                {customerCredentials.email} · {customerCredentials.password}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => fillDemo('customer')}
+              className="btn btn-secondary btn-sm shrink-0"
+            >
+              Use it
+            </button>
+          </div>
         </div>
 
         <div>
