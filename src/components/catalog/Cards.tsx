@@ -45,7 +45,12 @@ export function RestaurantCard({
           />
         ) : null}
         <span className="absolute top-2.5 left-2.5">
-          <span className={open.open ? 'pill bg-surface/95 text-ink' : 'pill bg-surface/95 text-muted'}>
+          <span
+            className={cn(
+              'pill shadow-[var(--shadow-chip)]',
+              open.open ? 'bg-pill-positive-bg text-pill-positive-ink' : 'bg-surface/95 text-muted',
+            )}
+          >
             <span
               className={cn('dot', open.open ? 'text-positive' : 'text-faint')}
               aria-hidden="true"

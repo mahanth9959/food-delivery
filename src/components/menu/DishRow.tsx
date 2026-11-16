@@ -22,7 +22,7 @@ export function DishRow({
 }) {
   return (
     <li className="row-hover border-t border-rule first:border-0">
-      <div className="flex items-center gap-3 px-3 py-2.5">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2.5 sm:flex-nowrap">
         <Link
           to={`/menu/${dish.id}`}
           aria-label={`Open ${dish.name}`}
@@ -37,7 +37,7 @@ export function DishRow({
             className="photo h-11 w-11 rounded-[4px] object-cover"
           />
         </Link>
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 basis-[calc(100%-3.5rem)] sm:basis-auto">
           <p className="flex min-w-0 items-center gap-1.5">
             <DietMark diet={dish.diet} />
             <Link
@@ -47,10 +47,13 @@ export function DishRow({
               {dish.name}
             </Link>
           </p>
-          <p className="mt-0.5 truncate text-[13px] leading-4 text-faint">
-            <span className="num font-medium text-muted lg:hidden">{formatINR(dish.price)} · </span>
-            {kitchenName} · {dish.cuisine}
-            <span className="lg:hidden"> · {dish.category}</span>
+          <p className="mt-0.5 flex items-baseline gap-1.5 text-[12px] leading-4 text-faint sm:text-[13px]">
+            <span className="num font-medium text-ink lg:hidden">{formatINR(dish.price)}</span>
+            <span className="min-w-0 truncate">
+              {kitchenName} · {dish.cuisine}
+              <span className="lg:hidden"> · {dish.category}</span>
+              {!dish.available && dish.soldOutAt ? <span> · out since {dish.soldOutAt}</span> : null}
+            </span>
           </p>
         </div>
 
@@ -62,7 +65,7 @@ export function DishRow({
           {formatINR(dish.price)}
         </span>
 
-        <span className="w-[104px] shrink-0">
+        <span className="order-last w-[104px] shrink-0 sm:order-none">
           <button
             type="button"
             onClick={onToggle}
@@ -75,12 +78,12 @@ export function DishRow({
           >
             <span className="dot" aria-hidden="true" />
             <span className="truncate">
-              {dish.available ? 'On sale' : `Sold out${dish.soldOutAt ? ` ${dish.soldOutAt}` : ''}`}
+              {dish.available ? 'On sale' : 'Sold out'}
             </span>
           </button>
         </span>
 
-        <div className="flex shrink-0 items-center gap-0.5">
+        <div className="hidden shrink-0 items-center gap-0.5 sm:flex">
           <button
             type="button"
             onClick={onAdd}
@@ -108,6 +111,37 @@ export function DishRow({
             title="Remove dish"
           >
             <Trash2 size={14} strokeWidth={1.7} />
+          </button>
+        </div>
+
+        <div className="mt-1.5 flex items-center gap-1 border-t border-rule pt-1.5 sm:hidden">
+          <button
+            type="button"
+            onClick={onAdd}
+            disabled={!dish.available}
+            className="inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-[4px] text-[12px] font-medium text-muted transition-colors hover:bg-raised hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+            aria-label={`Add ${dish.name} to the basket`}
+          >
+            <Plus size={13} strokeWidth={1.8} />
+            Add
+          </button>
+          <button
+            type="button"
+            onClick={onEdit}
+            className="inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-[4px] text-[12px] font-medium text-muted transition-colors hover:bg-raised hover:text-ink"
+            aria-label={`Edit ${dish.name}`}
+          >
+            <Pencil size={13} strokeWidth={1.8} />
+            Edit
+          </button>
+          <button
+            type="button"
+            onClick={onDelete}
+            className="inline-flex h-8 flex-1 items-center justify-center gap-1 rounded-[4px] text-[12px] font-medium text-muted transition-colors hover:bg-pill-negative-bg hover:text-pill-negative-ink"
+            aria-label={`Remove ${dish.name} from the menu`}
+          >
+            <Trash2 size={13} strokeWidth={1.8} />
+            Remove
           </button>
         </div>
       </div>

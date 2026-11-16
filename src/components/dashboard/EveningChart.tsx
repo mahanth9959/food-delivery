@@ -11,6 +11,8 @@ export function EveningChart({ points }: { points: EveningPoint[] }) {
 
   const ref = useCharts(
     (charts, node) => {
+      // On a phone seven day labels collide; label every other evening so each one clears.
+      const narrow = window.matchMedia('(max-width: 30rem)').matches
       charts.bars(node, {
         labels,
         values,
@@ -18,7 +20,7 @@ export function EveningChart({ points }: { points: EveningPoint[] }) {
         tickFormat: (value) => (value >= 1000 ? `${Math.round(value / 1000)}k` : String(value)),
         height: 236,
         highlight: points.length - 1,
-        xAt: points.map((_, index) => index),
+        xAt: narrow ? points.map((_, index) => index).filter((index) => index % 2 === 0) : points.map((_, index) => index),
       })
     },
     [labels.join('|'), values.join('|'), id],

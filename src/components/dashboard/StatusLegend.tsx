@@ -11,7 +11,7 @@ const stages: { id: OrderStatus; label: string }[] = [
 ]
 
 const swatch: Record<OrderStatus, string> = {
-  placed: 'bg-sunken',
+  placed: 'bg-stage-placed',
   preparing: 'bg-control',
   out_for_delivery: 'bg-live',
   delivered: 'bg-positive',

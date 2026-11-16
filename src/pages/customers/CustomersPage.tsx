@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, Search, Users } from 'lucide-react'
 import { PageHeader } from '../../components/ui/Page'
+import { KpiStrip } from '../../components/dashboard/KpiStrip'
 import { EmptyState } from '../../components/ui/Feedback'
 import { useOrders } from '../../hooks/useApp'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
@@ -93,23 +94,19 @@ export function CustomersPage() {
         }
       />
 
-      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-[8px] bg-line p-px sm:grid-cols-4">
-        {[
-          { label: 'Customers', value: String(customers.length), note: 'distinct phone numbers' },
-          { label: 'Repeat guests', value: String(repeat), note: 'more than one order' },
-          { label: 'Spent', value: formatINR(totalSpent), note: 'on paid orders' },
-          {
-            label: 'Average lifetime',
-            value: customers.length ? formatINR(Math.round(totalSpent / customers.length)) : '₹0',
-            note: 'per customer',
-          },
-        ].map((cell) => (
-          <div key={cell.label} className="bg-surface px-4 py-3.5">
-            <p className="text-[13px] leading-4 text-muted">{cell.label}</p>
-            <p className="num mt-1 text-[20px] leading-7 font-medium">{cell.value}</p>
-            <p className="mt-0.5 truncate text-[13px] leading-4 text-faint">{cell.note}</p>
-          </div>
-        ))}
+      <div>
+        <KpiStrip
+          cells={[
+            { label: 'Customers', value: String(customers.length), note: 'distinct phone numbers' },
+            { label: 'Repeat guests', value: String(repeat), note: 'more than one order' },
+            { label: 'Spent', value: formatINR(totalSpent), note: 'on paid orders' },
+            {
+              label: 'Average lifetime',
+              value: customers.length ? formatINR(Math.round(totalSpent / customers.length)) : '₹0',
+              note: 'per customer',
+            },
+          ]}
+        />
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-2.5">

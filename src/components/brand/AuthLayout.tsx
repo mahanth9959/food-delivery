@@ -49,7 +49,7 @@ export function AuthLayout({
           />
           {/* A warm scrim under the caption on a photograph is the one gradient the house rules keep. */}
           <div className="photo-scrim absolute inset-0" />
-          <div className="photo-caption absolute inset-x-0 bottom-0 p-9 pt-28">
+          <div className="photo-caption-fade absolute inset-x-0 bottom-0 p-9 pt-40">
             <p className="max-w-[34ch] text-[23px] leading-8 font-medium tracking-[-0.01em] text-invert">
               Every tiffin is cooked once, packed once and followed from the pass to the door.
             </p>

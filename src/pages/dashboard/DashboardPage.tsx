@@ -243,14 +243,14 @@ export function DashboardPage() {
             />
           </div>
             <div className="scroll-x">
-              <table className="w-full min-w-[380px]">
+              <table className="w-full">
                 <thead>
                   <tr className="text-left text-[13px] leading-4 text-faint">
                     <th className="px-4 pb-2 font-normal sm:px-5">Order</th>
                     <th className="hidden px-3 pb-2 font-normal sm:table-cell">Kitchen</th>
                     <th className="hidden px-3 pb-2 font-normal lg:table-cell">Placed</th>
                     <th className="px-3 pb-2 font-normal">Status</th>
-                    <th className="px-4 pb-2 text-right font-normal sm:px-5">Total</th>
+                    <th className="hidden px-4 pb-2 text-right font-normal sm:table-cell sm:px-5">Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -265,6 +265,9 @@ export function DashboardPage() {
                             {order.customer.name}
                           </span>
                         </Link>
+                        <span className="num mt-0.5 block text-[12px] leading-4 font-medium text-ink sm:hidden">
+                          {formatINR(order.pricing.total)}
+                        </span>
                       </td>
                       <td className="hidden border-t border-rule px-3 py-2.5 text-[13px] leading-4 text-muted sm:table-cell">
                         {order.kitchenName}
@@ -277,7 +280,7 @@ export function DashboardPage() {
                       <td className="border-t border-rule px-3 py-2.5">
                         <OrderPill status={order.status} />
                       </td>
-                      <td className="num border-t border-rule px-4 py-2.5 text-right text-[13px] leading-4 font-medium sm:px-5">
+                      <td className="num hidden border-t border-rule px-4 py-2.5 text-right text-[13px] leading-4 font-medium sm:table-cell sm:px-5">
                         {formatINR(order.pricing.total)}
                       </td>
                     </tr>

@@ -7,6 +7,23 @@
   "prompt": "dinner delivery service console, live orders, kitchens, menu, basket and checkout, warm food and evening service",
   "axes": "light/grotesk-sans/warm",
   "signature": "the tiffin stack as the order meter, tiers filling as the evening moves",
+  "entry": "finish review: stage pill restored, phone tables restacked, login session choice made real and checked, neutral data marks darkened to read, one selected-chip language on the menu",
+  "fingerprint": "app-screen/warm-desk/ink-rail/coral-live",
+  "sections": "rail, page head, KPI strip, command strip, chart, live board, tables",
+  "waived": [],
+  "photos": [
+   "dabbawala-jpg"
+  ],
+  "date": "2026-11-16"
+ },
+ {
+  "mode": "redesign",
+  "depth": "restyle",
+  "scope": "app",
+  "theme": "Coral",
+  "prompt": "dinner delivery service console, live orders, kitchens, menu, basket and checkout, warm food and evening service",
+  "axes": "light/grotesk-sans/warm",
+  "signature": "the tiffin stack as the order meter, tiers filling as the evening moves",
   "entry": "the rail becomes an ink board, coral pressed into the current screen and the primary",
   "fingerprint": "app-screen/warm-desk/ink-rail/coral-live",
   "sections": "rail, page head, KPI strip, command strip, chart, live board, tables",

@@ -207,7 +207,8 @@ export function RestaurantDetailPage() {
         </span>
       </div>
 
-      <div className="scroll-x mt-3 flex gap-1.5 pb-1" role="group" aria-label="Filter by category">
+      <div className="scroll-x mt-3 w-fit max-w-full rounded-[6px] bg-sunken p-0.5" role="group" aria-label="Filter by category">
+        <div className="flex items-center gap-0.5">
         {['all', ...categories].map((entry) => (
           <button
             key={entry}
@@ -215,15 +216,16 @@ export function RestaurantDetailPage() {
             onClick={() => setCategory(entry)}
             aria-pressed={category === entry}
             className={cn(
-              'h-8 shrink-0 rounded-[5px] px-3 text-[13px] font-medium transition-colors',
+              'h-8 shrink-0 rounded-[4px] px-3 text-[13px] font-medium transition-colors',
               category === entry
-                ? 'bg-ink text-invert'
-                : 'bg-surface text-muted shadow-[inset_0_0_0_1px_var(--color-line)] hover:text-ink',
+                ? 'bg-surface text-ink shadow-[var(--shadow-chip)]'
+                : 'text-muted hover:text-ink',
             )}
           >
             {entry === 'all' ? 'Everything' : entry}
           </button>
         ))}
+        </div>
       </div>
 
       <div className="mt-4">

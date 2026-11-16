@@ -97,7 +97,7 @@ export function AttentionCard({
                   </span>
                 </p>
               </div>
-              <span className="hidden 2xl:block">
+              <span className="hidden xl:block">
                 <OrderPill status={order.status} />
               </span>
               <button

@@ -51,7 +51,7 @@ export function KpiStrip({
             </p>
           )}
           {cell.note ? (
-            <p className="mt-0.5 truncate text-[12px] leading-4 text-faint">{cell.note}</p>
+            <p className="mt-0.5 text-[12px] leading-4 text-faint">{cell.note}</p>
           ) : null}
         </div>
       ))}

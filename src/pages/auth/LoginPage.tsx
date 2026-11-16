@@ -8,10 +8,12 @@ import { useAuth } from '../../hooks/useApp'
 import { demoCredentials } from '../../context/AuthContext'
 import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 
+type SessionChoice = 'device' | 'tab'
+
 interface LoginFields {
   email: string
   password: string
-  remember: boolean
+  remember: SessionChoice
 }
 
 export function LoginPage() {
@@ -27,14 +29,14 @@ export function LoginPage() {
     setError,
     formState: { errors, isSubmitting },
   } = useForm<LoginFields>({
-    defaultValues: { email: '', password: '', remember: true },
+    defaultValues: { email: '', password: '', remember: 'device' as SessionChoice },
     mode: 'onBlur',
   })
 
   const from = (location.state as { from?: string } | null)?.from ?? '/'
 
   const onSubmit = async (values: LoginFields) => {
-    const result = await signIn(values.email, values.password, values.remember)
+    const result = await signIn(values.email, values.password, values.remember === 'device')
     if (!result.ok) {
       setError('password', { message: 'That email and password do not match an account.' })
       toast.error('Sign-in failed. Check the email and password.')
@@ -140,11 +142,11 @@ export function LoginPage() {
         <fieldset className="mt-4">
           <legend className="field-label">Where the session is kept</legend>
           <div className="grid gap-2 sm:grid-cols-2">
-            <label className="flex cursor-pointer items-start gap-2 rounded-[6px] px-3 py-2.5 text-[13px] shadow-[inset_0_0_0_1px_var(--color-line)] has-[:checked]:bg-active has-[:checked]:shadow-[inset_0_0_0_1px_var(--color-ink)]">
+            <label className="flex cursor-pointer items-start gap-2 rounded-[6px] px-3 py-2.5 text-[13px] shadow-[inset_0_0_0_1px_var(--color-line)] transition-colors hover:bg-raised has-[:checked]:bg-brand-wash has-[:checked]:shadow-[inset_0_0_0_1px_var(--color-brand-deep)]">
               <input
                 type="radio"
                 value="device"
-                className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-[var(--color-ink)]"
+                className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-[var(--color-brand-deep)]"
                 {...register('remember')}
               />
               <span>
@@ -154,12 +156,12 @@ export function LoginPage() {
                 </span>
               </span>
             </label>
-            <label className="flex cursor-pointer items-start gap-2 rounded-[6px] px-3 py-2.5 text-[13px] shadow-[inset_0_0_0_1px_var(--color-line)] has-[:checked]:bg-active has-[:checked]:shadow-[inset_0_0_0_1px_var(--color-ink)]">
+            <label className="flex cursor-pointer items-start gap-2 rounded-[6px] px-3 py-2.5 text-[13px] shadow-[inset_0_0_0_1px_var(--color-line)] transition-colors hover:bg-raised has-[:checked]:bg-brand-wash has-[:checked]:shadow-[inset_0_0_0_1px_var(--color-brand-deep)]">
               <input
                 type="radio"
                 value="tab"
-                className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-[var(--color-ink)]"
-                {...register('remember', { setValueAs: (value) => value === 'device' })}
+                className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-[var(--color-brand-deep)]"
+                {...register('remember')}
               />
               <span>
                 <span className="block font-medium">This tab</span>

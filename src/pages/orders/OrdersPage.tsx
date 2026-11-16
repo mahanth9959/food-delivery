@@ -172,15 +172,15 @@ export function OrdersPage() {
           <>
             <div className="panel overflow-hidden">
               <div className="scroll-x">
-                <table className="w-full min-w-[420px]">
+                <table className="w-full">
                   <thead>
                     <tr className="text-left text-[13px] leading-4 text-faint">
                       <th className="px-4 pt-3 pb-2 font-normal">Order</th>
                       <th className="hidden px-3 pt-3 pb-2 font-normal lg:table-cell">Kitchen</th>
                       <th className="hidden px-3 pt-3 pb-2 font-normal sm:table-cell">Promised</th>
-                      <th className="hidden px-3 pt-3 pb-2 font-normal sm:table-cell">Status</th>
+                      <th className="px-3 pt-3 pb-2 font-normal">Status</th>
                       <th className="hidden px-3 pt-3 pb-2 text-right font-normal xl:table-cell">Items</th>
-                      <th className="px-3 pt-3 pb-2 text-right font-normal">Total</th>
+                      <th className="hidden px-3 pt-3 pb-2 text-right font-normal sm:table-cell">Total</th>
                       <th className="px-3 pt-3 pb-2 text-right font-normal sm:px-4">Action</th>
                     </tr>
                   </thead>
@@ -200,6 +200,9 @@ export function OrdersPage() {
                               </span>
                               <span className="mt-0.5 block text-[13px] leading-4 text-faint">
                                 {order.customer.name} · {formatRelative(order.placedAt)}
+                              </span>
+                              <span className="num mt-0.5 block text-[12px] leading-4 font-medium text-ink sm:hidden">
+                                {formatINR(order.pricing.total)}
                               </span>
                             </Link>
                           </td>
@@ -223,13 +226,13 @@ export function OrdersPage() {
                                   : 'served'}
                             </span>
                           </td>
-                          <td className="hidden border-t border-rule px-3 py-2.5 sm:table-cell">
+                          <td className="border-t border-rule px-3 py-2.5">
                             <OrderPill status={order.status} />
                           </td>
                           <td className="num hidden border-t border-rule px-3 py-2.5 text-right text-[13px] leading-4 text-muted xl:table-cell">
                             {order.items.reduce((sum, item) => sum + item.qty, 0)}
                           </td>
-                          <td className="num border-t border-rule px-3 py-2.5 text-right text-[13px] leading-4 font-medium">
+                          <td className="num hidden border-t border-rule px-3 py-2.5 text-right text-[13px] leading-4 font-medium sm:table-cell">
                             {formatINR(order.pricing.total)}
                           </td>
                           <td className="border-t border-rule px-4 py-2.5 text-right">
